@@ -140,4 +140,4 @@ dmypy.json
 cython_debug/
 
 /token
-token.py
+config.py

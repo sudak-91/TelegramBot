@@ -1,6 +1,6 @@
 import telebot
 import cherrypy
-import token
+import config
 import DataBase
 
 WEBHOOK_HOST = '18.188.44.19'
@@ -11,9 +11,9 @@ WEBHOOK_SSL_CERT = '/telegram_cert.pem'  # Путь к сертификату
 WEBHOOK_SSL_PRIV = '/telegram_pkey.pem'  # Путь к приватному ключу
 
 WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
-WEBHOOK_URL_PATH = "/%s/" % token.Token
+WEBHOOK_URL_PATH = "/%s/" % config.Token
 
-bot = telebot.TeleBot(token.Token)
+bot = telebot.TeleBot(config.Token)
 
 class WebhookServer(object):
     @cherrypy.expose

@@ -23,8 +23,8 @@ bot = telebot.TeleBot(config.Token)
 
 
 
-auth = tweepy.OAuthHandler(config.twOauthCert, config.twOauthKey)
-auth.set_access_token(config.Acseestoken, config.AcseesKey)
+auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
+
 
 class WebhookServer(object):
     @cherrypy.expose
@@ -45,9 +45,14 @@ class WebhookServer(object):
 def help_func(message):
     bot.send_message(message.chat.id, "Все очень просто. Пиши свой твит и я его сворую")
     auth_url = auth.get_authorization_url()
-    webbrowser.open(auth_url)
-    verifier = raw_input('PIN: ').strip()
-    auth.get_access_token(verifier)
+    bot.send_message(message.chat.id, auth_url)
+    bot.register_next_step_handler(message, next_twitter_step)
+def next_twitter_step(message):
+    try:
+        auth.get_access_token(message.text)
+    except:
+        print("Error")
+    auth.get_access_token(auth.access_token, auth.access_token_secret)
     api = tweepy.API(auth)
     try:
         api.verify_credentials()

@@ -1,4 +1,6 @@
 import sqlite3
+import sys
+import traceback
 from sqlite3 import Error
 
 
@@ -13,14 +15,18 @@ def sql_connection():
 
 
 def sql_table(con):
-
     cursObj = con.cursor()
     try:
-        cursObj.execute("CREATE TABLE IF NOT EXICTS twits (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tweet text NOT NULL)")
+        cursObj.execute('CREATE TABLE IF NOT EXICTS twits (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tweet text NOT NULL)')
         print("DB created")
         con.commit()
-    except Error:
-        print("Error")
+    except Error as er:
+        print('SQLite error: %s' % (' '.join(er.args)))
+        print("Exception class is: ", er.__class__)
+        print('SQLite traceback: ')
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        print(traceback.format_exception(exc_type, exc_value, exc_tb))
+        
 
 
 def sql_insert(con, twit):

@@ -41,7 +41,7 @@ def echo_message(message):
     con.close()
 
 
-@bot.message_handler(commands=[help])
+@bot.message_handler(commands=['help'])
 def help_func(message):
     bot.send_message(message.chat.id, "Все очень просто. Пиши свой твит и я его сворую")
 

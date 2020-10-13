@@ -34,6 +34,7 @@ class WebhookServer(object):
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def echo_message(message):
     bot.reply_to(message, message.text)
+    print(message.text)
     con = DataBase.sql_connection()
     DataBase.sql_table(con)
     DataBase.sql_insert(con, message.text)

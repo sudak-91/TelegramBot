@@ -1,5 +1,10 @@
+import webbrowser
+
 import telebot
 import cherrypy
+import tweepy
+from pip._vendor.distlib.compat import raw_input
+
 import config
 import DataBase
 
@@ -14,6 +19,12 @@ WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
 WEBHOOK_URL_PATH = "/%s/" % config.Token
 
 bot = telebot.TeleBot(config.Token)
+
+
+
+
+auth = tweepy.OAuthHandler(config.twOauthCert, config.twOauthKey)
+auth.set_access_token(config.Acseestoken, config.AcseesKey)
 
 class WebhookServer(object):
     @cherrypy.expose
@@ -33,6 +44,18 @@ class WebhookServer(object):
 @bot.message_handler(commands=['sstart'])
 def help_func(message):
     bot.send_message(message.chat.id, "Все очень просто. Пиши свой твит и я его сворую")
+    auth_url = auth.get_authorization_url()
+    webbrowser.open(auth_url)
+    verifier = raw_input('PIN: ').strip()
+    auth.get_access_token(verifier)
+    api = tweepy.API(auth)
+    try:
+        api.verify_credentials()
+        print("Authentication OK")
+        bot.send_message(message.chat.id, "Zer gud")
+        # api.update_status("Кажись я все сломал")
+    except:
+        print("Error during authentication")
 
 
 @bot.message_handler(content_types=['text'])

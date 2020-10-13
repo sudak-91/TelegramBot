@@ -30,6 +30,10 @@ class WebhookServer(object):
         else:
             raise cherrypy.HTTPError(403)
 
+@bot.message_handler(commands=['sstart'])
+def help_func(message):
+    bot.send_message(message.chat.id, "Все очень просто. Пиши свой твит и я его сворую")
+
 
 @bot.message_handler(content_types=['text'])
 def echo_message(message):
@@ -41,9 +45,7 @@ def echo_message(message):
     con.close()
 
 
-@bot.message_handler(commands=['help'])
-def help_func(message):
-    bot.send_message(message.chat.id, "Все очень просто. Пиши свой твит и я его сворую")
+
 
 
 bot.remove_webhook()

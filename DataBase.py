@@ -32,7 +32,7 @@ def sql_table(con):
 def sql_insert(con, twit):
     cursorObj = con.cursor()
     try:
-        cursorObj.execute("INSERT INTO 'twits'('tweet')VALUES('?')", twit)
+        cursorObj.execute("INSERT INTO twits (tweet) VALUES (?)", twit)
         print("Done")
         con.commit()
     except Error:

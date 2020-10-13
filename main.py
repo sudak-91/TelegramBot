@@ -50,9 +50,10 @@ def help_func(message):
 def next_twitter_step(message):
     try:
         auth.get_access_token(message.text)
+     
     except:
         print("Error")
-    auth.get_access_token(auth.access_token, auth.access_token_secret)
+    auth.set_access_token(auth.access_token, auth.access_token_secret)
     api = tweepy.API(auth)
     try:
         api.verify_credentials()

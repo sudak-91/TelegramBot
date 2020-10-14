@@ -85,7 +85,7 @@ def sql_getTwitterKey(con):
         k = cursorObj.execute("SELECT key, secret FROM twitterkey")
         return k
     except Error:
-        print(Error)
+        print("Error")
 
 
 def sql_select(con, row):

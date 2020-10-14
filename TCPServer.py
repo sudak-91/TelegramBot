@@ -9,7 +9,7 @@ auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
 class TCP_Server:
     api = ""
 
-    def start_server(self):
+    def start_server():
         sock = socket.socket()
         sock.bind(('', 9090))
         sock.listen(1)
@@ -57,4 +57,6 @@ class TCP_Server:
             except:
                 print("Ошибка" + k)
         conn.close()
+
+
 TCP_Server.start_server()

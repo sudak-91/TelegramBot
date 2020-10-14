@@ -2,14 +2,14 @@ import random
 import socket
 import DataBase
 import tweepy
+import config
 
 
-
-
+auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
 class TCP_Server:
     api = ""
 
-    def start_server(self, auth):
+    def start_server(self):
         sock = socket.socket()
         sock.bind(('', 9090))
         sock.listen(1)

@@ -87,7 +87,7 @@ def sql_getTwitterKey(con):
     except:
         print("нет курсора")
     try:
-        cursorObj.execute("SELECT * FROM twitterkey")
+        cursorObj.execute("SELECT * FROM twits")
         print("Етсь запрос")
     except Error as er:
         print('SQLite error: %s' % (' '.join(er.args)))
@@ -96,7 +96,7 @@ def sql_getTwitterKey(con):
         exc_type, exc_value, exc_tb = sys.exc_info()
         print(traceback.format_exception(exc_type, exc_value, exc_tb))
     try:
-        ks = cursorObj.fetсhall()
+        ks = cursorObj.fetchall()
         print("Есть результат")
         for k in ks:
             print(k)

@@ -50,7 +50,7 @@ def help_func(message):
 def help_func(message):
     try:
         con = DataBase.sql_connection()
-        kty, ghu = DataBase.sql_getTwitterKey(con)
+        chtid, kty, ghu = DataBase.sql_getTwitterKey(con)
         bot.send_message(message.chat.id, "yhhhh")
     except:
         bot.send_message(message.chat.id, "херня какая-то")

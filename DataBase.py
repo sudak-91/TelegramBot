@@ -111,7 +111,8 @@ def sql_getTwitterKey(con):
 def sql_select(con, row):
     try:
         cursorObj = con.cursor()
-        twit = cursorObj.execute("SELECT tweet FROM twits WHERE id LIKES '?'", row)
+        cursorObj.execute("SELECT tweet FROM twits WHERE id LIKES '?'", row)
+        twit = cursorObj.fetchone()
         return twit
     except Error:
         print(Error)

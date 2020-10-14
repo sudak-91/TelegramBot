@@ -24,6 +24,7 @@ bot = telebot.TeleBot(config.Token)
 auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
 thr = threading.Thread(target = tcp_server.start_server(auth))
 thr.start()
+thr.join()
 
 class WebhookServer(object):
     @cherrypy.expose

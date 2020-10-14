@@ -42,10 +42,10 @@ def create_twitter_table(con):
         print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
 
-def sql_insert_twitter(con, chatid, key, secret):
+def sql_insert_twitter(con, entetys):
     cursorObj = con.cursor()
     try:
-        cursorObj.execute("INSERT INTO twittwerkey (chatid, key, secret) VALUES (?,?,?)", [chatid], [key], [secret])
+        cursorObj.execute("INSERT INTO twittwerkey (chatid, key, secret) VALUES (?,?,?)", entetys)
         print("Done")
         con.commit()
     except Error as er:
@@ -56,10 +56,10 @@ def sql_insert_twitter(con, chatid, key, secret):
         print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
 
-def sql_insert(con, twit,chatid):
+def sql_insert(con, entetys):
     cursorObj = con.cursor()
     try:
-        cursorObj.execute("INSERT INTO twits (tweet, chatid) VALUES (?,?)", [twit],[chatid])
+        cursorObj.execute("INSERT INTO twits (tweet, chatid) VALUES (?,?)", entetys)
         print("Done")
         con.commit()
     except Error as er:

@@ -69,7 +69,8 @@ def next_twitter_step(message):
         auth.get_access_token(message.text)
         con = DataBase.sql_connection()
         DataBase.create_twitter_table(con)
-        DataBase.sql_insert_twitter(con, message.chat.id, auth.access_token, auth.access_token_secret)
+        entetys = (message.chat.id, auth.access_token, auth.access_token_secret)
+        DataBase.sql_insert_twitter(con, entetys)
 
     except:
         print("Error")
@@ -89,9 +90,10 @@ def next_twitter_step(message):
 def echo_message(message):
     bot.reply_to(message, message.text)
     print(message.text)
+    entetys = (message.text, message.chat.id)
     con = DataBase.sql_connection()
     DataBase.sql_table(con)
-    DataBase.sql_insert(con, message.text, message.chat.id)
+    DataBase.sql_insert(con, entetys)
     con.close()
 
 

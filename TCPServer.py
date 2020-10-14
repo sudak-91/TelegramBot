@@ -46,7 +46,7 @@ while True:
     k = random.randint(1, max)
     print (k)
     try:
-        twit = DataBase.sql_select(con, ([k]))
+        twit = DataBase.sql_select(con, [k])
         print (twit)
         api.update_status(twit)
 

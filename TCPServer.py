@@ -22,7 +22,7 @@ try:
 except:
     print("No data from db")
 try:
-    uth.set_access_token(token, secret)
+    auth.set_access_token(token, secret)
     api = tweepy.API(auth)
 except:
     print("TCP_server error connect")

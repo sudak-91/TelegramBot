@@ -88,10 +88,12 @@ def sql_getTwitterKey(con):
         print("нет курсора")
     try:
         cursorObj.execute("SELECT * FROM twitterkey")
+        print("Етсь запрос")
     except:
         print("нет запроса")
     try:
         ks = cursorObj.fetсhone()
+        print("Есть результат")
         for k in ks:
             print(k)
     except Error:

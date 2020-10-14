@@ -96,11 +96,11 @@ def sql_getTwitterKey(con):
         exc_type, exc_value, exc_tb = sys.exc_info()
         print(traceback.format_exception(exc_type, exc_value, exc_tb))
     try:
-        ks = cursorObj.fetсhone()
+        ks = cursorObj.fetсhall()
         print("Есть результат")
         for k in ks:
             print(k)
-    except Error:
+    except:
         print("Error")
 
 

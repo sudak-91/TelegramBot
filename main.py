@@ -21,7 +21,7 @@ WEBHOOK_URL_PATH = "/%s/" % config.Token
 
 bot = telebot.TeleBot(config.Token)
 auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
-tcp_server.start_server(auth)
+#tcp_server.start_server(auth)
 
 class WebhookServer(object):
     @cherrypy.expose
@@ -45,6 +45,15 @@ def help_func(message):
     #auth_url = auth.get_authorization_url()
     #bot.send_message(message.chat.id, auth_url)
     bot.register_next_step_handler(message, login_twitter)
+
+@bot.message_handler(commands=['show'])
+def help_func(message):
+    try:
+        con = DataBase.sql_connection()
+        k = DataBase.sql_getTwitterKey(con)
+        bot.send_message(message.chat.id, k)
+    except:
+        bot.send_message(message.chat.id, "херня какая-то")
 
 
 def login_twitter(message):

@@ -84,7 +84,7 @@ def sql_getTwitterKey(con):
     try:
         cursorObj.execute("SELECT key, secret FROM twitterkey")
         print(cursorObj.fetсhall())
-        return cursorObj.fetсhone()
+        return cursorObj.fetсhall()
     except Error:
         print("Error")
 

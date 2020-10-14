@@ -4,10 +4,11 @@ import telebot
 import cherrypy
 import tweepy
 from pip._vendor.distlib.compat import raw_input
-
+import TCPServer
 import config
 import DataBase
 
+tcp_server = TCPServer()
 WEBHOOK_HOST = '18.188.44.19'
 WEBHOOK_PORT = 88  # 443, 80, 88 или 8443 (порт должен быть открыт!)
 WEBHOOK_LISTEN = '0.0.0.0'  # На некоторых серверах придется указывать такой же IP, что и выше
@@ -20,7 +21,7 @@ WEBHOOK_URL_PATH = "/%s/" % config.Token
 
 bot = telebot.TeleBot(config.Token)
 auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
-
+tcp_server.start_server(auth)
 
 class WebhookServer(object):
     @cherrypy.expose
@@ -71,6 +72,7 @@ def next_twitter_step(message):
         DataBase.create_twitter_table(con)
         entetys = (message.chat.id, auth.access_token, auth.access_token_secret)
         DataBase.sql_insert_twitter(con, entetys)
+        con.close()
 
     except:
         print("Error")

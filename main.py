@@ -9,7 +9,7 @@ import config
 import DataBase
 import threading
 
-tcp_server = TCPServer.TCP_Server()
+#cp_server = TCPServer.TCP_Server()
 WEBHOOK_HOST = '18.188.44.19'
 WEBHOOK_PORT = 88  # 443, 80, 88 или 8443 (порт должен быть открыт!)
 WEBHOOK_LISTEN = '0.0.0.0'  # На некоторых серверах придется указывать такой же IP, что и выше
@@ -22,8 +22,8 @@ WEBHOOK_URL_PATH = "/%s/" % config.Token
 
 bot = telebot.TeleBot(config.Token)
 auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
-thr = threading.Thread(target = tcp_server.start_server(auth))
-thr.start()
+#thr = threading.Thread(target = tcp_server.start_server(auth))
+#thr.start()
 
 class WebhookServer(object):
     @cherrypy.expose
@@ -52,7 +52,7 @@ def help_func(message):
 def help_func(message):
     try:
         con = DataBase.sql_connection()
-        chtid, kty, ghu = DataBase.sql_getTwitterKey(con)
+        ghu = DataBase.sql_getRow(con)
         bot.send_message(message.chat.id, "yhhhh")
     except:
         bot.send_message(message.chat.id, "херня какая-то")

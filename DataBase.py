@@ -74,7 +74,8 @@ def sql_getRow(con):
     cursorObj = con.cursor()
     try:
         k = cursorObj.execute("SELECT * FROM twits").rowcount
-        return k
+        print(k)
+       # return k
     except Error:
         print(Error)
 

@@ -45,7 +45,7 @@ def create_twitter_table(con):
 def sql_insert_twitter(con, entetys):
     cursorObj = con.cursor()
     try:
-        cursorObj.execute("INSERT INTO twittwerkey (chatid, key, secret) VALUES (?,?,?)", entetys)
+        cursorObj.execute("INSERT INTO twitterkey (chatid, key, secret) VALUES (?,?,?)", entetys)
         print("Done")
         con.commit()
     except Error as er:

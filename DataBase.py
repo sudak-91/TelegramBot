@@ -77,7 +77,7 @@ def sql_getRow(con):
         raws = cursorObj.fetchall()
         k = len(raws)
         print(k)
-       # return k
+        return k
     except Error:
         print(Error)
 

@@ -45,11 +45,11 @@ while True:
 
     k = random.randint(1, max)
     print (k)
+    twit = DataBase.sql_select(con, [k])
+    print(twit)
+    con.close()
     try:
-        twit = DataBase.sql_select(con, [k])
-        print (twit)
         api.update_status(twit[0])
-        con.close()
     except:
         print("что-то пошло не так" + k)
     try:

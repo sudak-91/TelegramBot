@@ -5,9 +5,9 @@ import tweepy
 
 
 
-api =""
-class TCP_Server:
 
+class TCP_Server:
+    api = ""
 
     def start_server(self, auth):
         sock = socket.socket()
@@ -19,14 +19,17 @@ class TCP_Server:
             con = DataBase.sql_connection()
             token, secret = DataBase.sql_getTwitterKey(con)
             con.close()
+        except:
+            print("проблема с ДБ")
+        try:
             auth.set_access_token(token, secret)
-            api = tweepy.API(auth)
+            self.api = tweepy.API(auth)
         except:
             print("TCP_server error connect")
 
 
         try:
-            api.verify_credentials()
+            self.api.verify_credentials()
             print("Twitter connected")
         except:
             print("Twitter connecting error")

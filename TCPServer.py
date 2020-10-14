@@ -49,7 +49,7 @@ while True:
         twit = DataBase.sql_select(con, [k])
         print (twit)
         api.update_status(twit[0])
-
+        con.close()
     except:
         print("что-то пошло не так" + k)
     try:

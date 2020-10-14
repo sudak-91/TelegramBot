@@ -110,8 +110,7 @@ def echo_message(message):
 
 
 
-bot.remove_webhook()
-
+bot.remove_webhook(
 
 bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,
                 certificate=open(WEBHOOK_SSL_CERT, 'r'))

@@ -46,14 +46,14 @@ while True:
     k = random.randint(1, max)
     print (k)
     try:
-        twit = DataBase.sql_select(con, (k))
+        twit = DataBase.sql_select(con, int(k))
         print (twit)
         api.update_status(twit)
 
     except:
         print("что-то пошло не так" + k)
     try:
-        conn.send(str(k).encode('ascii'))
+        conn.send(str(int(k)).encode('ascii'))
     except:
         print("Ошибка" + k)
 conn.close()

@@ -17,7 +17,7 @@ def sql_connection():
 def sql_table(con):
     cursObj = con.cursor()
     try:
-        cursObj.execute('CREATE TABLE IF NOT EXISTS twits (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tweet text NOT NULL, chatid text NOTNULL)')
+        cursObj.execute('CREATE TABLE IF NOT EXISTS twits (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tweet text NOT NULL, chatid INTEGER NOT NULL)')
         print("Table created")
         con.commit()
     except Error as er:

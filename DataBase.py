@@ -87,7 +87,7 @@ def sql_getTwitterKey(con):
     except:
         print("нет курсора")
     try:
-        cursorObj.execute("SELECT * FROM twits")
+        cursorObj.execute("SELECT * FROM twitterkey")
         print("Етсь запрос")
     except Error as er:
         print('SQLite error: %s' % (' '.join(er.args)))

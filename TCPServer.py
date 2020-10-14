@@ -18,6 +18,7 @@ class TCP_Server:
         try:
             con = DataBase.sql_connection()
             token, secret = DataBase.sql_getTwitterKey(con)
+
             con.close()
         except:
             print("проблема с ДБ")

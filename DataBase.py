@@ -82,8 +82,8 @@ def sql_getRow(con):
 def sql_getTwitterKey(con):
     cursorObj = con.cursor()
     try:
-        k = cursorObj.execute("SELECT key, secret FROM twitterkey")
-        return k
+        cursorObj.execute("SELECT key, secret FROM twitterkey")
+        return cursorObj.fetсhone()
     except Error:
         print("Error")
 

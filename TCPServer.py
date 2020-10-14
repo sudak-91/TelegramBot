@@ -57,3 +57,4 @@ class TCP_Server:
             except:
                 print("Ошибка" + k)
         conn.close()
+TCP_Server.start_server()

@@ -9,7 +9,7 @@ import config
 import DataBase
 import threading
 
-tcp_server = TCPServer.TCP_Server()
+
 WEBHOOK_HOST = '18.188.44.19'
 WEBHOOK_PORT = 88  # 443, 80, 88 или 8443 (порт должен быть открыт!)
 WEBHOOK_LISTEN = '0.0.0.0'  # На некоторых серверах придется указывать такой же IP, что и выше
@@ -20,7 +20,7 @@ WEBHOOK_SSL_PRIV = '/telegram_pkey.pem'  # Путь к приватному кл
 WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
 WEBHOOK_URL_PATH = "/%s/" % config.Token
 
-bot = telebot.TeleBot(config.Token)
+
 
 
 class WebhookServer(object):
@@ -129,6 +129,3 @@ cherrypy.config.update({
 cherrypy.quickstart(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
 
 
-thr = threading.Thread(target = tcp_server.start_server)
-thr.start()
-thr.join()

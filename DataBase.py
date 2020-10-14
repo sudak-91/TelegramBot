@@ -87,7 +87,7 @@ def sql_getTwitterKey(con):
     except:
         print("нет курсора")
     try:
-        #cursorObj.execute("SELECT * FROM twitterkey")
+        cursorObj.execute("SELECT * FROM twits")
         print("Етсь запрос")
     except:
         print("нет запроса")

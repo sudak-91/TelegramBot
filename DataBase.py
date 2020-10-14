@@ -17,8 +17,8 @@ def sql_connection():
 def sql_table(con):
     cursObj = con.cursor()
     try:
-        cursObj.execute('CREATE TABLE IF NOT EXISTS twits (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tweet text NOT NULL)')
-        print("DB created")
+        cursObj.execute('CREATE TABLE IF NOT EXISTS twits (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tweet text NOT NULL, chatid text NOTNULL)')
+        print("Table created")
         con.commit()
     except Error as er:
         print('SQLite error: %s' % (' '.join(er.args)))
@@ -28,11 +28,38 @@ def sql_table(con):
         print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
 
+def create_twitter_table(con):
+    cursObj = con.cursor()
+    try:
+        cursObj.execute('CREATE TABLE IF NOT EXISTS twitterkey (chatid INTEGER PRIMARY KEY NOT NULL, key text NOT NULL, secret text NOT NULL)')
+        print("Table created")
+        con.commit()
+    except Error as er:
+        print('SQLite error: %s' % (' '.join(er.args)))
+        print("Exception class is: ", er.__class__)
+        print('SQLite traceback: ')
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
-def sql_insert(con, twit):
+
+def sql_insert_twitter(con, chatid, key, secret):
     cursorObj = con.cursor()
     try:
-        cursorObj.execute("INSERT INTO twits (tweet) VALUES (?)", [twit])
+        cursorObj.execute("INSERT INTO twittwerkey (chatid, key, secret) VALUES (?,?,?)", [chatid], [key], [secret])
+        print("Done")
+        con.commit()
+    except Error as er:
+        print('SQLite error: %s' % (' '.join(er.args)))
+        print("Exception class is: ", er.__class__)
+        print('SQLite traceback: ')
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        print(traceback.format_exception(exc_type, exc_value, exc_tb))
+
+
+def sql_insert(con, twit,chatid):
+    cursorObj = con.cursor()
+    try:
+        cursorObj.execute("INSERT INTO twits (tweet, chatid) VALUES (?,?)", [twit],[chatid])
         print("Done")
         con.commit()
     except Error as er:

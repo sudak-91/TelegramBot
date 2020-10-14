@@ -73,8 +73,8 @@ def sql_insert(con, entetys):
 def sql_getRow(con):
     cursorObj = con.cursor()
     try:
-        k = cursorObj.execute("SELECT * FROM twits").rowcount
-        print(k)
+        cursorObj.execute("SELECT * FROM twits").rowcount
+        print( cursorObj.execute("SELECT * FROM twits").rowcount)
        # return k
     except Error:
         print(Error)

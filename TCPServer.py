@@ -9,7 +9,7 @@ api =""
 class TCP_Server:
 
 
-    def start_server(auth):
+    def start_server(self, auth):
         sock = socket.socket()
         sock.bind(('', 9090))
         sock.listen(1)

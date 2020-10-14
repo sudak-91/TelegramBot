@@ -4,12 +4,11 @@ import telebot
 import cherrypy
 import tweepy
 from pip._vendor.distlib.compat import raw_input
-import TCPServer
 import config
 import DataBase
 import threading
 
-
+auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
 WEBHOOK_HOST = '18.188.44.19'
 WEBHOOK_PORT = 88  # 443, 80, 88 или 8443 (порт должен быть открыт!)
 WEBHOOK_LISTEN = '0.0.0.0'  # На некоторых серверах придется указывать такой же IP, что и выше
@@ -20,7 +19,7 @@ WEBHOOK_SSL_PRIV = '/telegram_pkey.pem'  # Путь к приватному кл
 WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
 WEBHOOK_URL_PATH = "/%s/" % config.Token
 
-
+bot = telebot.TeleBot(config.Token)
 
 
 class WebhookServer(object):

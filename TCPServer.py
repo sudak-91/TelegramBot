@@ -17,10 +17,13 @@ class TCP_Server:
 
         try:
             con = DataBase.sql_connection()
+        except:
+            print("no connect")
+        try:
             token, secret = DataBase.sql_getTwitterKey(con)
             con.close()
         except:
-            print("проблема с ДБ")
+            print("No data from db")
         try:
             auth.set_access_token(token, secret)
             self.api = tweepy.API(auth)
@@ -45,7 +48,7 @@ class TCP_Server:
 
             k = random.randint(0, max)
             try:
-                api.update_status(DataBase.sql_select(con, k))
+                self.api.update_status(DataBase.sql_select(con, k))
                 con.close()
             except:
                 print("что-то пошло не так" + k)

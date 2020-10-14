@@ -7,6 +7,7 @@ from pip._vendor.distlib.compat import raw_input
 import TCPServer
 import config
 import DataBase
+import threading
 
 tcp_server = TCPServer.TCP_Server()
 WEBHOOK_HOST = '18.188.44.19'
@@ -21,7 +22,8 @@ WEBHOOK_URL_PATH = "/%s/" % config.Token
 
 bot = telebot.TeleBot(config.Token)
 auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
-tcp_server.start_server(auth)
+thr = threading.Thread(target = tcp_server.start_server(auth))
+thr.start()
 
 class WebhookServer(object):
     @cherrypy.expose

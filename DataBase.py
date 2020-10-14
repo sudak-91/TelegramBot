@@ -113,6 +113,7 @@ def sql_select(con, row):
         cursorObj = con.cursor()
         cursorObj.execute("SELECT tweet FROM twits WHERE id LIKES '?'", row)
         twit = cursorObj.fetchone()
+        print (twit)
         return twit
     except Error:
         print(Error)

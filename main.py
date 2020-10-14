@@ -22,9 +22,6 @@ WEBHOOK_URL_PATH = "/%s/" % config.Token
 
 bot = telebot.TeleBot(config.Token)
 
-thr = threading.Thread(target = tcp_server.start_server)
-thr.start()
-thr.join()
 
 class WebhookServer(object):
     @cherrypy.expose
@@ -130,3 +127,8 @@ cherrypy.config.update({
 
 
 cherrypy.quickstart(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
+
+
+thr = threading.Thread(target = tcp_server.start_server)
+thr.start()
+thr.join()

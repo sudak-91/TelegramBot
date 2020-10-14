@@ -91,8 +91,9 @@ def sql_getTwitterKey(con):
     except:
         print("нет запроса")
     try:
-        k = cursorObj.fetсhone()
-        print(k)
+        ks = cursorObj.fetсhone()
+        for k in ks:
+            print(k)
     except Error:
         print("Error")
 

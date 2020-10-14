@@ -32,7 +32,7 @@ def create_twitter_table(con):
     cursObj = con.cursor()
     try:
         cursObj.execute('CREATE TABLE IF NOT EXISTS twitterkey (chatid INTEGER PRIMARY KEY NOT NULL, key text NOT NULL, secret text NOT NULL)')
-        print("Table created")
+        print("Table twitterkey created")
         con.commit()
     except Error as er:
         print('SQLite error: %s' % (' '.join(er.args)))

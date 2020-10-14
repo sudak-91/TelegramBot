@@ -22,7 +22,7 @@ WEBHOOK_URL_PATH = "/%s/" % config.Token
 
 bot = telebot.TeleBot(config.Token)
 auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
-thr = threading.Thread(target = tcp_server.start_server(auth))
+thr = threading.Thread(target = tcp_server.start_server, args=auth)
 thr.start()
 thr.join()
 

@@ -81,12 +81,18 @@ def sql_getRow(con):
 
 def sql_getTwitterKey(con):
     print("get key")
-    cursorObj = con.cursor()
+    try:
+        cursorObj = con.cursor()
+        print("Етсь курсор")
+    except:
+        print("нет курсора")
     try:
         cursorObj.execute("SELECT * FROM twitterkey")
+    except:
+        print("нет запроса")
+    try:
         k = cursorObj.fetсhone()
         print(k)
-        return k
     except Error:
         print("Error")
 

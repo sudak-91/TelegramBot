@@ -11,7 +11,7 @@ sock = socket.socket()
 sock.bind(('', 9090))
 sock.listen(1)
 conn, addr = sock.accept()
-
+conn.send(str("CNCT OK").encode('ascii'))
 try:
      con = DataBase.sql_connection()
 except:
@@ -50,6 +50,7 @@ while True:
     con.close()
     try:
         api.update_status(twit[0])
+        conn.send(str("Update OK").encode('ascii'))
     except:
         print("что-то пошло не так" + k)
     try:
@@ -57,5 +58,6 @@ while True:
     except:
         print("Ошибка" + k)
 conn.close()
+print("Cоединение закрыто")
 
 

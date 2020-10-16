@@ -42,73 +42,76 @@ class WebhookServer(object):
             raise cherrypy.HTTPError(403)
 
 
-@bot.message_handler(commands=['signin'])
-def help_func(message):
-    bot.send_message(message.chat.id, "Окееей. Давай сюда свой логин")
-    #auth_url = auth.get_authorization_url()
-    #bot.send_message(message.chat.id, auth_url)
-    bot.register_next_step_handler(message, login_twitter)
+if __name__ == '__main__':
 
-@bot.message_handler(commands=['show'])
-def help_func(message):
-    try:
+
+    @bot.message_handler(commands=['signin'])
+    def help_func(message):
+        bot.send_message(message.chat.id, "Окееей. Давай сюда свой логин")
+        #auth_url = auth.get_authorization_url()
+        #bot.send_message(message.chat.id, auth_url)
+        bot.register_next_step_handler(message, login_twitter)
+
+    @bot.message_handler(commands=['show'])
+    def help_func(message):
+        try:
+            con = DataBase.sql_connection()
+            ghu = DataBase.sql_getRow(con)
+            bot.send_message(message.chat.id, "yhhhh")
+        except:
+            bot.send_message(message.chat.id, "херня какая-то")
+
+
+    def login_twitter(message):
+        if(message.text == config.Login):
+            bot.send_message(message.chat.id, "Окей. Теперь давай пароль")
+            bot.register_next_step_handler(message, pass_twitter)
+        else:
+            bot.send_message(message.chat.id, "Не прокатило")
+
+
+    def pass_twitter(message):
+        if(message.text == config.Pass):
+            bot.send_message(message.chat.id, "Пароль верен")
+            auth_url = auth.get_authorization_url()
+            bot.send_message(message.chat.id, auth_url)
+            bot.register_next_step_handler(message, next_twitter_step)
+        else:
+            bot.send_message(message.chat.id, "Не угадал")
+
+
+    def next_twitter_step(message):
+        try:
+            auth.get_access_token(message.text)
+            con = DataBase.sql_connection()
+            DataBase.create_twitter_table(con)
+            entetys = (message.chat.id, auth.access_token, auth.access_token_secret)
+            DataBase.sql_insert_twitter(con, entetys)
+            con.close()
+
+        except:
+            print("Error")
+
+        #auth.set_access_token(auth.access_token, auth.access_token_secret)
+        api = tweepy.API(auth)
+        try:
+            api.verify_credentials()
+            print("Authentication OK")
+            bot.send_message(message.chat.id, "Zer gud")
+            # api.update_status("Кажись я все сломал")
+        except:
+            print("Error during authentication")
+
+
+    @bot.message_handler(content_types=['text'])
+    def echo_message(message):
+        bot.reply_to(message, message.text)
+        print(message.text)
+        entetys = (message.text, message.chat.id)
         con = DataBase.sql_connection()
-        ghu = DataBase.sql_getRow(con)
-        bot.send_message(message.chat.id, "yhhhh")
-    except:
-        bot.send_message(message.chat.id, "херня какая-то")
-
-
-def login_twitter(message):
-    if(message.text == config.Login):
-        bot.send_message(message.chat.id, "Окей. Теперь давай пароль")
-        bot.register_next_step_handler(message, pass_twitter)
-    else:
-        bot.send_message(message.chat.id, "Не прокатило")
-
-
-def pass_twitter(message):
-    if(message.text == config.Pass):
-        bot.send_message(message.chat.id, "Пароль верен")
-        auth_url = auth.get_authorization_url()
-        bot.send_message(message.chat.id, auth_url)
-        bot.register_next_step_handler(message, next_twitter_step)
-    else:
-        bot.send_message(message.chat.id, "Не угадал")
-
-
-def next_twitter_step(message):
-    try:
-        auth.get_access_token(message.text)
-        con = DataBase.sql_connection()
-        DataBase.create_twitter_table(con)
-        entetys = (message.chat.id, auth.access_token, auth.access_token_secret)
-        DataBase.sql_insert_twitter(con, entetys)
+        DataBase.sql_table(con)
+        DataBase.sql_insert(con, entetys)
         con.close()
-
-    except:
-        print("Error")
-
-    #auth.set_access_token(auth.access_token, auth.access_token_secret)
-    api = tweepy.API(auth)
-    try:
-        api.verify_credentials()
-        print("Authentication OK")
-        bot.send_message(message.chat.id, "Zer gud")
-        # api.update_status("Кажись я все сломал")
-    except:
-        print("Error during authentication")
-
-
-@bot.message_handler(content_types=['text'])
-def echo_message(message):
-    bot.reply_to(message, message.text)
-    print(message.text)
-    entetys = (message.text, message.chat.id)
-    con = DataBase.sql_connection()
-    DataBase.sql_table(con)
-    DataBase.sql_insert(con, entetys)
-    con.close()
 
 
 

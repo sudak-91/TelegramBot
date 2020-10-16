@@ -22,8 +22,9 @@ WEBHOOK_URL_PATH = "/%s/" % config.Token
 bot = telebot.TeleBot(config.Token)
 
 class TestArduino(object):
-
-        print("Достучалось")
+        @cherrypy.expose
+        def index(self):
+            print("Достучалось")
 
 
 class WebhookServer(object):

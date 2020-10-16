@@ -122,7 +122,9 @@ cherrypy.config.update({
     'server.ssl_private_key': WEBHOOK_SSL_PRIV
 })
 
+cherrypy.tree.mount(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
+cherrypy.engine.start()
+cherrypy.engine.block()
 
-cherrypy.quickstart(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
 
 

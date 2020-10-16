@@ -131,7 +131,7 @@ cherrypy.config.update({
 })
 
 cherrypy.tree.mount(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
-cherrypy.tree.mount(TestArduino(), '/Temp', {'/': {}})
+cherrypy.tree.mount(TestArduino(), '/Temp/', {'/': {}})
 cherrypy.engine.start()
 cherrypy.engine.block()
 

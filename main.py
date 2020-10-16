@@ -22,8 +22,7 @@ WEBHOOK_URL_PATH = "/%s/" % config.Token
 bot = telebot.TeleBot(config.Token)
 
 class TestArduino(object):
-    @cherrypy.expose
-    def Temp(selfs):
+
         print("Достучалось")
 
 
@@ -128,7 +127,7 @@ cherrypy.config.update({
 })
 
 cherrypy.tree.mount(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
-cherrypy.tree.mount(TestArduino(), '/temp', {'/':{}})
+cherrypy.tree.mount(TestArduino(), '/Temp', {'/': {}})
 cherrypy.engine.start()
 cherrypy.engine.block()
 

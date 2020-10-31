@@ -7,7 +7,7 @@ from sqlite3 import Error
 
 def sql_connection():
     try:
-        con = sqlite3.connect("twitdb.db")
+        con = sqlite3.connect("./twitdb.db")
         print("Нормес прошло. ДБ создано")
         return con
     except Error:

@@ -39,6 +39,7 @@ class WebhookServer(object):
             update = telebot.types.Update.de_json(json_string)
             # Эта функция обеспечивает проверку входящего сообщения
             bot.process_new_updates([update])
+
             return ''
         else:
             raise cherrypy.HTTPError(403)
@@ -60,8 +61,7 @@ if __name__ == '__main__':
             con = DataBase.sql_connection()
             ghu = DataBase.sql_getRow(con)
             bot.send_message(message.chat.id, "yhhhh")
-            req = cherrypy._cprequest.Request(local_host='localhost', remote_host='localhost:9090', server_protocol="'HTTP/1.1'")
-            req.run()
+            requests.post(url="localhost:8080")
 
 
         except:
@@ -135,6 +135,7 @@ cherrypy.config.update({
 
 cherrypy.tree.mount(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
 cherrypy.tree.mount(TestArduino(), '/Temp/', {'/': {}})
+
 cherrypy.engine.start()
 cherrypy.engine.block()
 

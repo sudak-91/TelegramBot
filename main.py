@@ -62,7 +62,7 @@ if __name__ == '__main__':
             ghu = DataBase.sql_getRow(con)
             bot.send_message(message.chat.id, "yhhhh")
             requests.post(url="localhost:8080")
-
+    ##
 
         except:
             bot.send_message(message.chat.id, "херня какая-то")

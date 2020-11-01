@@ -6,6 +6,7 @@ import tweepy
 from pip._vendor.distlib.compat import raw_input
 import config
 import DataBase
+import requests
 import threading
 
 auth = tweepy.OAuthHandler(config.ApiKey, config.ApiSecret)
@@ -59,8 +60,8 @@ if __name__ == '__main__':
             con = DataBase.sql_connection()
             ghu = DataBase.sql_getRow(con)
             bot.send_message(message.chat.id, "yhhhh")
-            cherrypy._cprequest.Request(local_host='localhost',remote_host='localhost:9090',server_protocol="'HTTP/1.1'")
-            cherrypy._cprequest.Request.run()
+            req = cherrypy._cprequest.Request(local_host='localhost', remote_host='localhost:9090', server_protocol="'HTTP/1.1'")
+            req.run()
 
 
         except:

@@ -61,7 +61,7 @@ if __name__ == '__main__':
             con = DataBase.sql_connection()
             ghu = DataBase.sql_getRow(con)
             bot.send_message(message.chat.id, "yhhhh")
-            requests.post(url="18.188.44.19:9090")
+            requests.get("http://18.188.44.19:9090/?login=gghsdsa")
     ##
 
         except:

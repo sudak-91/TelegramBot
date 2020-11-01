@@ -60,6 +60,8 @@ if __name__ == '__main__':
             ghu = DataBase.sql_getRow(con)
             bot.send_message(message.chat.id, "yhhhh")
             cherrypy._cprequest.Request(local_host='localhost',remote_host='localhost:9090',server_protocol="'HTTP/1.1'")
+            cherrypy._cprequest.Request.run()
+
 
         except:
             bot.send_message(message.chat.id, "херня какая-то")

@@ -74,10 +74,10 @@ if __name__ == '__main__':
     def addkey_func(message):
         apiKey = message.text
         bot.send_message(message.chat.id, "Ключ для учета")
-        bot.register_next_step_handler(message, checkkey_func, *apiKey)
+        bot.register_next_step_handler(message, checkkey_func, apiKey)
 
-        
-    def checkkey_func(message, *apiKey):
+
+    def checkkey_func(message, apiKey):
         key = message.text
         bot.send_message(message.chat.id, f"Код прибора {apiKey} а имя ключа {key}")
 

@@ -47,6 +47,11 @@ class WebhookServer(object):
 
 if __name__ == '__main__':
 
+    
+    @bot.message_handler(commands=['register'])
+    def register_device(message):
+        bot.send_message(message.chat.id, "Укажите keyApi прибора")
+        bot.register_next_step_handler(message, sendregdata)
 
     @bot.message_handler(commands=['signin'])
     def help_func(message):
@@ -134,10 +139,7 @@ if __name__ == '__main__':
         DataBase.sql_insert(con, entetys)
         con.close()
 
-    @bot.message_handler(commands=['register'])
-    def register_device(message):
-        bot.send_message(message.chat.id, "Укажите keyApi прибора")
-        bot.register_next_step_handler(message, sendregdata)
+
 
 
     def sendregdata(message):

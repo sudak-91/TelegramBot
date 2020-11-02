@@ -80,6 +80,8 @@ if __name__ == '__main__':
     def checkkey_func(message, apiKey):
         key = message.text
         bot.send_message(message.chat.id, f"Код прибора {apiKey} а имя ключа {key}")
+        r = requests.post("http://18.188.44.19:9090/postKey/", json={'apiKey':apiKey, 'key':key})
+        bot.send_message(message.chat.id, r)
 
     def login_twitter(message):
         if(message.text == config.Login):

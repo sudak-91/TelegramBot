@@ -61,12 +61,25 @@ if __name__ == '__main__':
             con = DataBase.sql_connection()
             ghu = DataBase.sql_getRow(con)
             bot.send_message(message.chat.id, "yhhhh")
-            requests.get("http://18.188.44.19:9090/?login=gghsdsa")
-    ##
+           ## requests.get("http://18.188.44.19:9090/?login=gghsdsa")
+
 
         except:
             bot.send_message(message.chat.id, "херня какая-то")
+    @bot.message_handler(commands=['adddevice'])
+    def adddev_func(message):
+        bot.send_message(message.chat.id,"Ключ прибора")
+        bot.register_next_step_handler(message, addkey_func)
 
+    def addkey_func(message):
+        apiKey = message.text
+        bot.send_message(message.chat.id, "Ключ для учета")
+        bot.register_next_step_handler(message, checkkey_func, *apiKey)
+
+        
+    def checkkey_func(message, *apiKey):
+        key = message.text
+        bot.send_message(message.chat.id, f"Код прибора {apiKey} а имя ключа {key}")
 
     def login_twitter(message):
         if(message.text == config.Login):

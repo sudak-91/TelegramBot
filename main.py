@@ -47,7 +47,21 @@ class WebhookServer(object):
 
 if __name__ == '__main__':
 
-    
+    @bot.message_handler(commands=['command'])
+    def new_command(message):
+        bot.send_message(message.chat.id,"Укажите keyApi")
+        bot.register_next_step_handler(message, new_command_key)
+
+    def new_command_key(message):
+        apiKey = message.text
+        bot.send_message(message.chat.id, "Укажите порт управления")
+        bot.register_next_step_handler(message, check_key_querry, apiKey)
+
+    def check_key_querry(message, apiKey):
+        r = requests.post("http://18.188.44.19:9090/check_querry_length/", json={'apiKey': apiKey, 'key': message.text})
+        bot.send_message(message.chat.id, r)
+
+
     @bot.message_handler(commands=['register'])
     def register_device(message):
         bot.send_message(message.chat.id, "Укажите keyApi прибора")

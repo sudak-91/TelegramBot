@@ -61,7 +61,8 @@ if __name__ == '__main__':
         key = message.text
         r = requests.post("http://18.188.44.19:9090/check_querry_length/", json={'apiKey': apiKey, 'key': message.text})
         bot.send_message(message.chat.id, r)
-        if r == 0:
+
+        if r.text == '0':
             bot.send_message(message.chat.id, "Укажите состояние")
             bot.register_next_step_handler(message, post_comman_func, apiKey, key)
         else:

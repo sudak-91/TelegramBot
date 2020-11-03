@@ -58,8 +58,14 @@ if __name__ == '__main__':
         bot.register_next_step_handler(message, check_key_querry, apiKey)
 
     def check_key_querry(message, apiKey):
+        key = message.text
         r = requests.post("http://18.188.44.19:9090/check_querry_length/", json={'apiKey': apiKey, 'key': message.text})
         bot.send_message(message.chat.id, r)
+        if (r == 0):
+            bot.send_message(message.chat.id, "Укажите состояние")
+            bot.register_next_step_handler(message, post_comman_func, apiKey, key)
+        else:
+            bot.send_message(message.chat.id,"На указанный порт данного устройства уже есть комманда. Дождитесь ее выполнения")
 
 
     @bot.message_handler(commands=['register'])
@@ -100,11 +106,7 @@ if __name__ == '__main__':
         key = message.text
         bot.send_message(message.chat.id, f"Код прибора {apiKey} а имя ключа {key}")
         r = requests.post("http://18.188.44.19:9090/postKey/", json={'apiKey':apiKey, 'key':key})
-        if(r == 0):
-            bot.send_message(message.chat.id, "Укажите состояние")
-            bot.register_next_step_handler(message, post_comman_func, apiKey, key)
-        else:
-            bot.send_message(message.chat.id, "На указанный порт данного устройства уже есть комманда. Дождитесь ее выполнения")
+
 
 
     def post_comman_func(message, apiKey, key):

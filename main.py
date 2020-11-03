@@ -100,7 +100,15 @@ if __name__ == '__main__':
         key = message.text
         bot.send_message(message.chat.id, f"Код прибора {apiKey} а имя ключа {key}")
         r = requests.post("http://18.188.44.19:9090/postKey/", json={'apiKey':apiKey, 'key':key})
-        bot.send_message(message.chat.id, r)
+        if(r == 0):
+            bot.send_message(message.chat.id, "Укажите состояние")
+            bot.register_next_step_handler(message, post_comman_func, apiKey, key)
+        else:
+            bot.send_message(message.chat.id, "На указанный порт данного устройства уже есть комманда. Дождитесь ее выполнения")
+
+
+    def post_comman_func(message, apiKey, key):
+        requests.post("http://18.188.44.19:9090/add_command/", json={'apiKey': apiKey, 'Key': key, 'value': message.text})
 
     def login_twitter(message):
         if(message.text == config.Login):
